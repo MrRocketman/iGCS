@@ -565,6 +565,13 @@ static const int AIRPLANE_ICON_SIZE = 48;
             
             [ahIndicatorView setRoll:-attitudePkt.roll pitch:attitudePkt.pitch];
             [ahIndicatorView requestRedraw];
+            
+            [self.rollView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.roll)]];
+            [self.pitchView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.pitch)]];
+            [self.yawView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.yaw)]];
+            self.artificialHorizonView.roll = attitudePkt.roll;
+            self.artificialHorizonView.pitch = attitudePkt.pitch;
+            self.artificialHorizonView.yaw = attitudePkt.yaw;
         }
         break;
 
@@ -604,7 +611,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
         {
             mavlink_sys_status_t sysStatus;
             mavlink_msg_sys_status_decode(msg, &sysStatus);
-            [voltageLabel setText:[NSString stringWithFormat:@"%0.1fV", sysStatus.voltage_battery/1000.0f]];
+            [voltageLabel setText:[NSString stringWithFormat:@"%0.2fV", sysStatus.voltage_battery/1000.0f]];
             [batteryPercentageLabel setText:[NSString stringWithFormat:@"%d%%", sysStatus.battery_remaining]];
         }
         break;

@@ -14,6 +14,8 @@
 #import "MavLinkPacketHandler.h"
 #import "CorePlot-CocoaTouch.h"
 #import "SimpleDataView.h"
+#import "SmallDataView.h"
+#import "SimpleArtificialHorizonView.h"
 
 #import "RequestedPointAnnotation.h"
 #import "GuidedPointAnnotation.h"
@@ -46,8 +48,13 @@
 @property (nonatomic, retain) IBOutlet UIImageView *windIconView;
 @property (nonatomic, retain) IBOutlet ArtificialHorizonView *ahIndicatorView;
 @property (nonatomic, retain) IBOutlet CompassView           *compassView;
+
 @property (nonatomic, retain) IBOutlet SimpleDataView *altitudeView;
 @property (nonatomic, retain) IBOutlet SimpleDataView *airspeedView;
+@property (nonatomic, retain) IBOutlet SmallDataView *rollView;
+@property (nonatomic, retain) IBOutlet SmallDataView *pitchView;
+@property (nonatomic, retain) IBOutlet SmallDataView *yawView;
+@property (nonatomic, retain) IBOutlet SimpleArtificialHorizonView *artificialHorizonView;
 
 @property (nonatomic, retain) IBOutlet UILabel *armedLabel;
 @property (nonatomic, retain) IBOutlet UILabel *customModeLabel;

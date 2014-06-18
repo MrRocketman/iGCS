@@ -252,6 +252,8 @@
 		1A117C4119510778005949F5 /* WiFlyInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C3C19510778005949F5 /* WiFlyInterface.m */; };
 		1A117C4219510778005949F5 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C3E19510778005949F5 /* GCDAsyncSocket.m */; };
 		1A117C4A19511168005949F5 /* SimpleDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C4919511168005949F5 /* SimpleDataView.m */; };
+		1A117C5319521E27005949F5 /* SimpleArtificialHorizonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C5219521E27005949F5 /* SimpleArtificialHorizonView.m */; };
+		1A117C5619522912005949F5 /* SmallDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C5519522912005949F5 /* SmallDataView.m */; };
 		447C4B8E17C6E3A500440678 /* MavLinkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 447C4B8D17C6E3A400440678 /* MavLinkLogger.m */; };
 		49369F9D16DC8DA700D98370 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49369F9C16DC8DA700D98370 /* SystemConfiguration.framework */; };
 		495253ED1703F1C3006E27B0 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 495253EB1703F1C3006E27B0 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -719,6 +721,10 @@
 		1A117C4819511168005949F5 /* SimpleDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleDataView.h; sourceTree = "<group>"; };
 		1A117C4919511168005949F5 /* SimpleDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleDataView.m; sourceTree = "<group>"; };
 		1A117C4F195141E0005949F5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1A117C5119521E27005949F5 /* SimpleArtificialHorizonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleArtificialHorizonView.h; sourceTree = "<group>"; };
+		1A117C5219521E27005949F5 /* SimpleArtificialHorizonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleArtificialHorizonView.m; sourceTree = "<group>"; };
+		1A117C5419522912005949F5 /* SmallDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallDataView.h; sourceTree = "<group>"; };
+		1A117C5519522912005949F5 /* SmallDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallDataView.m; sourceTree = "<group>"; };
 		447C4B8C17C6E3A400440678 /* MavLinkLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MavLinkLogger.h; sourceTree = "<group>"; };
 		447C4B8D17C6E3A400440678 /* MavLinkLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MavLinkLogger.m; sourceTree = "<group>"; };
 		492C813016DBD102004001FF /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -1704,6 +1710,10 @@
 				496E628816DAFB8B00E52E4A /* VerticalScaleView.m */,
 				1A117C4819511168005949F5 /* SimpleDataView.h */,
 				1A117C4919511168005949F5 /* SimpleDataView.m */,
+				1A117C5419522912005949F5 /* SmallDataView.h */,
+				1A117C5519522912005949F5 /* SmallDataView.m */,
+				1A117C5119521E27005949F5 /* SimpleArtificialHorizonView.h */,
+				1A117C5219521E27005949F5 /* SimpleArtificialHorizonView.m */,
 				CA094F2A18D534E100AC6AE4 /* WaypointAnnotationView.h */,
 				CA094F2B18D534E100AC6AE4 /* WaypointAnnotationView.m */,
 			);
@@ -2620,6 +2630,7 @@
 				496E626B16DAFAF600E52E4A /* WaypointHelper.m in Sources */,
 				CA0B69AC189B69F50014C1E4 /* SWRevealViewController.m in Sources */,
 				CA05751618BE080B001EACFD /* LFDisplayBridge.m in Sources */,
+				1A117C5319521E27005949F5 /* SimpleArtificialHorizonView.m in Sources */,
 				496E626D16DAFAF600E52E4A /* WaypointsHolder.m in Sources */,
 				496E628916DAFB8B00E52E4A /* GuidedPointAnnotation.m in Sources */,
 				CA10E131188FCD42002DF0E4 /* GCSThemeManager.m in Sources */,
@@ -2641,6 +2652,7 @@
 				18A42CD518895B3700408D71 /* GKNetController.m in Sources */,
 				496E629D16DAFB8B00E52E4A /* VerticalScaleView.m in Sources */,
 				496E62C616DAFBF600E52E4A /* CommController.m in Sources */,
+				1A117C5619522912005949F5 /* SmallDataView.m in Sources */,
 				CAFBD035180A674100F5BCDB /* MavLinkRetryingRequestHandler.m in Sources */,
 				18069FD81836F7C70068E7A5 /* RNBluetoothInterface.m in Sources */,
 				CAFBD050180A8C9200F5BCDB /* RxMissionItems.m in Sources */,
