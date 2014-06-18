@@ -50,11 +50,9 @@
 @synthesize windIconView;
 @synthesize ahIndicatorView;
 @synthesize compassView;
-@synthesize airspeedView;
-@synthesize altitudeView;
 
 @synthesize voltageLabel;
-@synthesize currentLabel;
+@synthesize batteryPercentageLabel;
 
 // 3 modes
 //  * auto (initiates/returns to mission)
@@ -239,15 +237,6 @@ static const int AIRPLANE_ICON_SIZE = 48;
     // Initialize subviews
     [ahIndicatorView setRoll: 0 pitch: 0];
     [compassView setHeading: 0];
-    
-    [airspeedView setScale:20];
-    [airspeedView setValue:0];
-    
-    [altitudeView setScale:200];
-    [altitudeView setValue:0];
-    [altitudeView setCeilingThreshold:400 * 0.3048]; // IGCS-44: future user setting
-    [altitudeView setCeilingThresholdBackground:[[GCSThemeManager sharedInstance] altimeterCeilingBreachColor]];
-    [altitudeView setCeilingThresholdEnabled:YES];
     
     windIconView = [[UIImageView alloc] initWithImage:[MiscUtilities image:[UIImage imageNamed:@"193-location-arrow.png"]
                                                                  withColor:[UIColor redColor]]];
@@ -541,7 +530,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
 - (void) handlePacket:(mavlink_message_t*)msg {
     
     switch (msg->msgid) {
-        /*
+        
         // Temporarily disabled in favour of MAVLINK_MSG_ID_GPS_RAW_INT
         case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
         {
@@ -553,7 +542,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
             [self addToTrack:pos];
         }
         break;
-        */
+        /*
         case MAVLINK_MSG_ID_GPS_RAW_INT:
         {
             mavlink_gps_raw_int_t gpsRawIntPkt;
@@ -564,7 +553,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
             [self addToTrack:pos];
         }
         break;
-            
+            */
         case MAVLINK_MSG_ID_ATTITUDE:
         {
             mavlink_attitude_t attitudePkt;
@@ -585,12 +574,10 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_msg_vfr_hud_decode(msg, &vfrHudPkt);
             
             [compassView setHeading:vfrHudPkt.heading];
-            [airspeedView setValue:vfrHudPkt.airspeed]; // m/s
-            [altitudeView setValue:vfrHudPkt.alt];      // m
+            [self.airspeedView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.groundspeed]];
+            [self.altitudeView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.alt]];
 
             [compassView  requestRedraw];
-            [airspeedView requestRedraw];
-            [altitudeView requestRedraw];
         }
         break;
             
@@ -600,8 +587,8 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_msg_nav_controller_output_decode(msg, &navCtrlOutPkt);
             
             [compassView setNavBearing:navCtrlOutPkt.nav_bearing];
-            [airspeedView setTargetDelta:navCtrlOutPkt.aspd_error]; // m/s
-            [altitudeView setTargetDelta:navCtrlOutPkt.alt_error];  // m
+            //[airspeedView setTargetDelta:navCtrlOutPkt.aspd_error]; // m/s
+            //[altitudeView setTargetDelta:navCtrlOutPkt.alt_error];  // m
         }
         break;
             
@@ -618,7 +605,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_sys_status_t sysStatus;
             mavlink_msg_sys_status_decode(msg, &sysStatus);
             [voltageLabel setText:[NSString stringWithFormat:@"%0.1fV", sysStatus.voltage_battery/1000.0f]];
-            [currentLabel setText:[NSString stringWithFormat:@"%0.1fA", sysStatus.current_battery/100.0f]];
+            [batteryPercentageLabel setText:[NSString stringWithFormat:@"%d%%", sysStatus.battery_remaining]];
         }
         break;
 

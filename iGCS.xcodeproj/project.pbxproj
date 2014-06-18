@@ -251,6 +251,7 @@
 		18F8040417E24BB300CB8052 /* CommConnectionPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8040217E24BB300CB8052 /* CommConnectionPool.m */; };
 		1A117C4119510778005949F5 /* WiFlyInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C3C19510778005949F5 /* WiFlyInterface.m */; };
 		1A117C4219510778005949F5 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C3E19510778005949F5 /* GCDAsyncSocket.m */; };
+		1A117C4A19511168005949F5 /* SimpleDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A117C4919511168005949F5 /* SimpleDataView.m */; };
 		447C4B8E17C6E3A500440678 /* MavLinkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 447C4B8D17C6E3A400440678 /* MavLinkLogger.m */; };
 		49369F9D16DC8DA700D98370 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49369F9C16DC8DA700D98370 /* SystemConfiguration.framework */; };
 		495253ED1703F1C3006E27B0 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 495253EB1703F1C3006E27B0 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -715,6 +716,9 @@
 		1A117C3C19510778005949F5 /* WiFlyInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiFlyInterface.m; sourceTree = "<group>"; };
 		1A117C3D19510778005949F5 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		1A117C3E19510778005949F5 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		1A117C4819511168005949F5 /* SimpleDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleDataView.h; sourceTree = "<group>"; };
+		1A117C4919511168005949F5 /* SimpleDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleDataView.m; sourceTree = "<group>"; };
+		1A117C4F195141E0005949F5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		447C4B8C17C6E3A400440678 /* MavLinkLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MavLinkLogger.h; sourceTree = "<group>"; };
 		447C4B8D17C6E3A400440678 /* MavLinkLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MavLinkLogger.m; sourceTree = "<group>"; };
 		492C813016DBD102004001FF /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -1698,6 +1702,8 @@
 				496E628616DAFB8B00E52E4A /* GaugeViewCommon.h */,
 				496E628716DAFB8B00E52E4A /* VerticalScaleView.h */,
 				496E628816DAFB8B00E52E4A /* VerticalScaleView.m */,
+				1A117C4819511168005949F5 /* SimpleDataView.h */,
+				1A117C4919511168005949F5 /* SimpleDataView.m */,
 				CA094F2A18D534E100AC6AE4 /* WaypointAnnotationView.h */,
 				CA094F2B18D534E100AC6AE4 /* WaypointAnnotationView.m */,
 			);
@@ -2078,6 +2084,7 @@
 		CA499F6114DE33BC00FCC9FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A117C4F195141E0005949F5 /* CoreText.framework */,
 				CAA2CFD9161C000C00267615 /* libz.dylib */,
 				18E62664171101D9006A5D43 /* libkxmovie.a */,
 				189E235D1710DBBC00548C88 /* libiconv.dylib */,
@@ -2647,6 +2654,7 @@
 				49C1FA1216DC74DB00BAE96B /* Logger.m in Sources */,
 				CA05750418BE07FE001EACFD /* CXAlertButtonItem.m in Sources */,
 				CAFBD047180A83E000F5BCDB /* TxMissionItem.m in Sources */,
+				1A117C4A19511168005949F5 /* SimpleDataView.m in Sources */,
 				CA0B69B7189B787E0014C1E4 /* GCSSidebarController.m in Sources */,
 				CA094F2C18D534E100AC6AE4 /* WaypointAnnotationView.m in Sources */,
 				49C1FA1716DC7B5200BAE96B /* ExceptionHandler.m in Sources */,

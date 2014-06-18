@@ -11,9 +11,9 @@
 
 #import "ArtificialHorizonView.h"
 #import "CompassView.h"
-#import "VerticalScaleView.h"
 #import "MavLinkPacketHandler.h"
 #import "CorePlot-CocoaTouch.h"
+#import "SimpleDataView.h"
 
 #import "RequestedPointAnnotation.h"
 #import "GuidedPointAnnotation.h"
@@ -46,8 +46,8 @@
 @property (nonatomic, retain) IBOutlet UIImageView *windIconView;
 @property (nonatomic, retain) IBOutlet ArtificialHorizonView *ahIndicatorView;
 @property (nonatomic, retain) IBOutlet CompassView           *compassView;
-@property (nonatomic, retain) IBOutlet VerticalScaleView     *airspeedView;
-@property (nonatomic, retain) IBOutlet VerticalScaleView     *altitudeView;
+@property (nonatomic, retain) IBOutlet SimpleDataView *altitudeView;
+@property (nonatomic, retain) IBOutlet SimpleDataView *airspeedView;
 
 @property (nonatomic, retain) IBOutlet UILabel *armedLabel;
 @property (nonatomic, retain) IBOutlet UILabel *customModeLabel;
@@ -57,7 +57,7 @@
 @property (nonatomic, retain) IBOutlet CPTGraphHostingView *dataRateSparklineView;
 @property (nonatomic, retain) IBOutlet UILabel *dataRateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *voltageLabel;
-@property (nonatomic, retain) IBOutlet UILabel *currentLabel;
+@property (nonatomic, retain) IBOutlet UILabel *batteryPercentageLabel;
 
 #ifdef VIDEOSTREAMING
 @property (nonatomic, retain) KxMovieViewController *kxMovieVC;
