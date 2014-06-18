@@ -62,18 +62,6 @@
     CGContextSetFillColorWithColor(context, [self.skyColor CGColor]);
     CGContextFillRect(context, CGRectMake(0, -centerPoint.y, self.frame.size.width, self.frame.size.height));
     
-    // Draw the basic pitch lines
-    /*float lineHeight = 1.0;//self.frame.size.height / 56.0; // 3.0
-    int numberOfLines = 6;
-    for(int i = 1; i < numberOfLines + 1; i ++)
-    {
-        float lineY = (self.frame.size.height / numberOfLines) * i - (self.frame.size.height / (numberOfLines * 2)) - lineHeight / 2;
-        CGRect lineRect = CGRectMake(self.frame.size.width / 4, lineY, self.frame.size.width / 2, lineHeight);
-        CGContextSetFillColorWithColor(context, ((lineY < centerPoint.y) ? self.skyDetailsColor.CGColor : self.groundDetailsColor.CGColor));
-        
-        CGContextFillRect(context, lineRect);
-    }*/
-    
     // Draw pitch lines
     for (int i = 1; i <= 4; i++)
     {

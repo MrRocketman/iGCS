@@ -33,11 +33,7 @@
 		182FFAA1181F0C9100A8C31C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E627C16DAFB8B00E52E4A /* MainViewController.m */; };
 		182FFAA2181F0C9100A8C31C /* WaypointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E627E16DAFB8B00E52E4A /* WaypointsViewController.m */; };
 		182FFAA3181F0C9100A8C31C /* DateTimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830D07117D1651400F77F7E /* DateTimeUtils.m */; };
-		182FFAA4181F0C9100A8C31C /* ArtificialHorizonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628116DAFB8B00E52E4A /* ArtificialHorizonView.m */; };
-		182FFAA5181F0C9100A8C31C /* CompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628316DAFB8B00E52E4A /* CompassView.m */; };
 		182FFAA6181F0C9100A8C31C /* RxMissionRequestList.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFBD04C180A87C900F5BCDB /* RxMissionRequestList.m */; };
-		182FFAA7181F0C9100A8C31C /* DoubleBufferedAsyncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628516DAFB8B00E52E4A /* DoubleBufferedAsyncView.m */; };
-		182FFAA8181F0C9100A8C31C /* VerticalScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628816DAFB8B00E52E4A /* VerticalScaleView.m */; };
 		182FFAA9181F0C9100A8C31C /* CommController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E62A116DAFBF600E52E4A /* CommController.m */; };
 		182FFAAA181F0C9100A8C31C /* (null) in Sources */ = {isa = PBXBuildFile; };
 		182FFAAB181F0C9100A8C31C /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -156,13 +152,9 @@
 		18B9FAD218B2F7AF00668660 /* WaypointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E627E16DAFB8B00E52E4A /* WaypointsViewController.m */; };
 		18B9FAD318B2F7AF00668660 /* DateTimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830D07117D1651400F77F7E /* DateTimeUtils.m */; };
 		18B9FAD418B2F7AF00668660 /* iGCSRadioConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18069FB91836F7C70068E7A5 /* iGCSRadioConfig.m */; };
-		18B9FAD518B2F7AF00668660 /* ArtificialHorizonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628116DAFB8B00E52E4A /* ArtificialHorizonView.m */; };
-		18B9FAD618B2F7AF00668660 /* CompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628316DAFB8B00E52E4A /* CompassView.m */; };
 		18B9FAD718B2F7AF00668660 /* RxMissionRequestList.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFBD04C180A87C900F5BCDB /* RxMissionRequestList.m */; };
-		18B9FAD818B2F7AF00668660 /* DoubleBufferedAsyncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628516DAFB8B00E52E4A /* DoubleBufferedAsyncView.m */; };
 		18B9FAD918B2F7AF00668660 /* BTLEMavLinkCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = 18069FA21836F7C70068E7A5 /* BTLEMavLinkCentral.m */; };
 		18B9FADA18B2F7AF00668660 /* GKNetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A42CD218895B3700408D71 /* GKNetController.m */; };
-		18B9FADB18B2F7AF00668660 /* VerticalScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628816DAFB8B00E52E4A /* VerticalScaleView.m */; };
 		18B9FADC18B2F7AF00668660 /* CommController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E62A116DAFBF600E52E4A /* CommController.m */; };
 		18B9FADD18B2F7AF00668660 /* MavLinkRetryingRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFBD034180A674100F5BCDB /* MavLinkRetryingRequestHandler.m */; };
 		18B9FADE18B2F7AF00668660 /* RNBluetoothInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 18069FBF1836F7C70068E7A5 /* RNBluetoothInterface.m */; };
@@ -281,14 +273,6 @@
 		496E629416DAFB8B00E52E4A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E627C16DAFB8B00E52E4A /* MainViewController.m */; };
 		496E629516DAFB8B00E52E4A /* WaypointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E627E16DAFB8B00E52E4A /* WaypointsViewController.m */; };
 		496E629616DAFB8B00E52E4A /* WaypointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E627E16DAFB8B00E52E4A /* WaypointsViewController.m */; };
-		496E629716DAFB8B00E52E4A /* ArtificialHorizonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628116DAFB8B00E52E4A /* ArtificialHorizonView.m */; };
-		496E629816DAFB8B00E52E4A /* ArtificialHorizonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628116DAFB8B00E52E4A /* ArtificialHorizonView.m */; };
-		496E629916DAFB8B00E52E4A /* CompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628316DAFB8B00E52E4A /* CompassView.m */; };
-		496E629A16DAFB8B00E52E4A /* CompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628316DAFB8B00E52E4A /* CompassView.m */; };
-		496E629B16DAFB8B00E52E4A /* DoubleBufferedAsyncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628516DAFB8B00E52E4A /* DoubleBufferedAsyncView.m */; };
-		496E629C16DAFB8B00E52E4A /* DoubleBufferedAsyncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628516DAFB8B00E52E4A /* DoubleBufferedAsyncView.m */; };
-		496E629D16DAFB8B00E52E4A /* VerticalScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628816DAFB8B00E52E4A /* VerticalScaleView.m */; };
-		496E629E16DAFB8B00E52E4A /* VerticalScaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E628816DAFB8B00E52E4A /* VerticalScaleView.m */; };
 		496E62C616DAFBF600E52E4A /* CommController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E62A116DAFBF600E52E4A /* CommController.m */; };
 		496E62C716DAFBF600E52E4A /* CommController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E62A116DAFBF600E52E4A /* CommController.m */; };
 		49AC435E1708B8EF008225A3 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49AC435D1708B8EF008225A3 /* Dropbox.framework */; };
@@ -752,15 +736,7 @@
 		496E627C16DAFB8B00E52E4A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		496E627D16DAFB8B00E52E4A /* WaypointsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaypointsViewController.h; sourceTree = "<group>"; };
 		496E627E16DAFB8B00E52E4A /* WaypointsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaypointsViewController.m; sourceTree = "<group>"; };
-		496E628016DAFB8B00E52E4A /* ArtificialHorizonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtificialHorizonView.h; sourceTree = "<group>"; };
-		496E628116DAFB8B00E52E4A /* ArtificialHorizonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtificialHorizonView.m; sourceTree = "<group>"; };
-		496E628216DAFB8B00E52E4A /* CompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassView.h; sourceTree = "<group>"; };
-		496E628316DAFB8B00E52E4A /* CompassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompassView.m; sourceTree = "<group>"; };
-		496E628416DAFB8B00E52E4A /* DoubleBufferedAsyncView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleBufferedAsyncView.h; sourceTree = "<group>"; };
-		496E628516DAFB8B00E52E4A /* DoubleBufferedAsyncView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleBufferedAsyncView.m; sourceTree = "<group>"; };
 		496E628616DAFB8B00E52E4A /* GaugeViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugeViewCommon.h; sourceTree = "<group>"; };
-		496E628716DAFB8B00E52E4A /* VerticalScaleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalScaleView.h; sourceTree = "<group>"; };
-		496E628816DAFB8B00E52E4A /* VerticalScaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalScaleView.m; sourceTree = "<group>"; };
 		496E62A016DAFBF600E52E4A /* CommController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommController.h; sourceTree = "<group>"; };
 		496E62A116DAFBF600E52E4A /* CommController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommController.m; sourceTree = "<group>"; };
 		496E62C416DAFBF600E52E4A /* MavLinkPacketHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MavLinkPacketHandler.h; sourceTree = "<group>"; };
@@ -1697,17 +1673,9 @@
 		496E627F16DAFB8B00E52E4A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				496E628016DAFB8B00E52E4A /* ArtificialHorizonView.h */,
-				496E628116DAFB8B00E52E4A /* ArtificialHorizonView.m */,
-				496E628216DAFB8B00E52E4A /* CompassView.h */,
-				496E628316DAFB8B00E52E4A /* CompassView.m */,
-				496E628416DAFB8B00E52E4A /* DoubleBufferedAsyncView.h */,
-				496E628516DAFB8B00E52E4A /* DoubleBufferedAsyncView.m */,
 				CA094F2418D534AA00AC6AE4 /* FillStrokePolyLineView.h */,
 				CA094F2518D534AA00AC6AE4 /* FillStrokePolyLineView.m */,
 				496E628616DAFB8B00E52E4A /* GaugeViewCommon.h */,
-				496E628716DAFB8B00E52E4A /* VerticalScaleView.h */,
-				496E628816DAFB8B00E52E4A /* VerticalScaleView.m */,
 				1A117C4819511168005949F5 /* SimpleDataView.h */,
 				1A117C4919511168005949F5 /* SimpleDataView.m */,
 				1A117C5419522912005949F5 /* SmallDataView.h */,
@@ -2502,13 +2470,9 @@
 				182FFAA1181F0C9100A8C31C /* MainViewController.m in Sources */,
 				182FFAA2181F0C9100A8C31C /* WaypointsViewController.m in Sources */,
 				182FFAA3181F0C9100A8C31C /* DateTimeUtils.m in Sources */,
-				182FFAA4181F0C9100A8C31C /* ArtificialHorizonView.m in Sources */,
 				18069FD51836F7C70068E7A5 /* iGCSRadioConfig.m in Sources */,
 				CA05751818BE080B001EACFD /* LFDisplayBridge.m in Sources */,
-				182FFAA5181F0C9100A8C31C /* CompassView.m in Sources */,
 				182FFAA6181F0C9100A8C31C /* RxMissionRequestList.m in Sources */,
-				182FFAA7181F0C9100A8C31C /* DoubleBufferedAsyncView.m in Sources */,
-				182FFAA8181F0C9100A8C31C /* VerticalScaleView.m in Sources */,
 				18069FC31836F7C70068E7A5 /* BTLEMavLinkCentral.m in Sources */,
 				CA094F2818D534AA00AC6AE4 /* FillStrokePolyLineView.m in Sources */,
 				CA05751C18BE080B001EACFD /* LFGlassView.m in Sources */,
@@ -2575,13 +2539,9 @@
 				18B9FAD318B2F7AF00668660 /* DateTimeUtils.m in Sources */,
 				18B9FAD418B2F7AF00668660 /* iGCSRadioConfig.m in Sources */,
 				CA056B6418C5A50B00A36F5A /* DataRateRecorder.m in Sources */,
-				18B9FAD518B2F7AF00668660 /* ArtificialHorizonView.m in Sources */,
-				18B9FAD618B2F7AF00668660 /* CompassView.m in Sources */,
 				18B9FAD718B2F7AF00668660 /* RxMissionRequestList.m in Sources */,
-				18B9FAD818B2F7AF00668660 /* DoubleBufferedAsyncView.m in Sources */,
 				18B9FAD918B2F7AF00668660 /* BTLEMavLinkCentral.m in Sources */,
 				18B9FADA18B2F7AF00668660 /* GKNetController.m in Sources */,
-				18B9FADB18B2F7AF00668660 /* VerticalScaleView.m in Sources */,
 				18B9FADC18B2F7AF00668660 /* CommController.m in Sources */,
 				18B9FADD18B2F7AF00668660 /* MavLinkRetryingRequestHandler.m in Sources */,
 				CA094F2718D534AA00AC6AE4 /* FillStrokePolyLineView.m in Sources */,
@@ -2643,14 +2603,10 @@
 				496E629516DAFB8B00E52E4A /* WaypointsViewController.m in Sources */,
 				1830D07217D1651400F77F7E /* DateTimeUtils.m in Sources */,
 				18069FD41836F7C70068E7A5 /* iGCSRadioConfig.m in Sources */,
-				496E629716DAFB8B00E52E4A /* ArtificialHorizonView.m in Sources */,
-				496E629916DAFB8B00E52E4A /* CompassView.m in Sources */,
 				CAFBD04D180A87C900F5BCDB /* RxMissionRequestList.m in Sources */,
 				CA05750018BE07FE001EACFD /* CXAlertButtonContainerView.m in Sources */,
-				496E629B16DAFB8B00E52E4A /* DoubleBufferedAsyncView.m in Sources */,
 				18069FC21836F7C70068E7A5 /* BTLEMavLinkCentral.m in Sources */,
 				18A42CD518895B3700408D71 /* GKNetController.m in Sources */,
-				496E629D16DAFB8B00E52E4A /* VerticalScaleView.m in Sources */,
 				496E62C616DAFBF600E52E4A /* CommController.m in Sources */,
 				1A117C5619522912005949F5 /* SmallDataView.m in Sources */,
 				CAFBD035180A674100F5BCDB /* MavLinkRetryingRequestHandler.m in Sources */,
@@ -2708,12 +2664,8 @@
 				CA094F2F18D534E100AC6AE4 /* WaypointAnnotationView.m in Sources */,
 				496E629416DAFB8B00E52E4A /* MainViewController.m in Sources */,
 				496E629616DAFB8B00E52E4A /* WaypointsViewController.m in Sources */,
-				496E629816DAFB8B00E52E4A /* ArtificialHorizonView.m in Sources */,
 				CA05750F18BE07FE001EACFD /* CXAlertViewController.m in Sources */,
-				496E629A16DAFB8B00E52E4A /* CompassView.m in Sources */,
 				CA056B6618C5A50B00A36F5A /* DataRateRecorder.m in Sources */,
-				496E629C16DAFB8B00E52E4A /* DoubleBufferedAsyncView.m in Sources */,
-				496E629E16DAFB8B00E52E4A /* VerticalScaleView.m in Sources */,
 				CA094F2918D534AA00AC6AE4 /* FillStrokePolyLineView.m in Sources */,
 				CA0574FF18BE07FE001EACFD /* CXAlertBackgroundWindow.m in Sources */,
 				CA05751918BE080B001EACFD /* LFDisplayBridge.m in Sources */,

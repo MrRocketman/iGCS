@@ -47,10 +47,6 @@
     CPTXYGraph *dataRateGraph;
 }
 
-@synthesize windIconView;
-@synthesize ahIndicatorView;
-@synthesize compassView;
-
 @synthesize voltageLabel;
 @synthesize batteryPercentageLabel;
 
@@ -233,16 +229,6 @@ static const int AIRPLANE_ICON_SIZE = 48;
     
 	// Do any additional setup after loading the view, typically from a nib.
     [map addAnnotation:uavPos];
-    
-    // Initialize subviews
-    [ahIndicatorView setRoll: 0 pitch: 0];
-    [compassView setHeading: 0];
-    
-    windIconView = [[UIImageView alloc] initWithImage:[MiscUtilities image:[UIImage imageNamed:@"193-location-arrow.png"]
-                                                                 withColor:[UIColor redColor]]];
-    windIconView.frame = CGRectMake(42, 50, windIconView.frame.size.width, windIconView.frame.size.height);
-    [map addSubview: windIconView];
-    windIconView.transform = CGAffineTransformMakeRotation((WIND_ICON_OFFSET_ANG) * M_PI/180.0f);
 }
 
 - (void) setDataRateRecorder:(DataRateRecorder *)dataRateRecorder {
@@ -563,15 +549,13 @@ static const int AIRPLANE_ICON_SIZE = 48;
                                              scaledToSize: CGSizeMake(AIRPLANE_ICON_SIZE,AIRPLANE_ICON_SIZE)
                                                  rotation: attitudePkt.yaw];
             
-            [ahIndicatorView setRoll:-attitudePkt.roll pitch:attitudePkt.pitch];
-            [ahIndicatorView requestRedraw];
-            
             [self.rollView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.roll)]];
             [self.pitchView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.pitch)]];
             [self.yawView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.yaw)]];
             self.artificialHorizonView.roll = attitudePkt.roll;
             self.artificialHorizonView.pitch = attitudePkt.pitch;
             self.artificialHorizonView.yaw = attitudePkt.yaw;
+            [self.artificialHorizonView setNeedsDisplay];
         }
         break;
 
@@ -580,11 +564,9 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_vfr_hud_t  vfrHudPkt;
             mavlink_msg_vfr_hud_decode(msg, &vfrHudPkt);
             
-            [compassView setHeading:vfrHudPkt.heading];
+            //[compassView setHeading:vfrHudPkt.heading];
             [self.airspeedView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.groundspeed]];
             [self.altitudeView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.alt]];
-
-            [compassView  requestRedraw];
         }
         break;
             
@@ -593,7 +575,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_nav_controller_output_t navCtrlOutPkt;
             mavlink_msg_nav_controller_output_decode(msg, &navCtrlOutPkt);
             
-            [compassView setNavBearing:navCtrlOutPkt.nav_bearing];
+            //[compassView setNavBearing:navCtrlOutPkt.nav_bearing];
             //[airspeedView setTargetDelta:navCtrlOutPkt.aspd_error]; // m/s
             //[altitudeView setTargetDelta:navCtrlOutPkt.alt_error];  // m
         }
@@ -620,7 +602,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
         {
             mavlink_wind_t wind;
             mavlink_msg_wind_decode(msg, &wind);
-            windIconView.transform = CGAffineTransformMakeRotation(((360 + (int)wind.direction + WIND_ICON_OFFSET_ANG) % 360) * M_PI/180.0f);
+            //windIconView.transform = CGAffineTransformMakeRotation(((360 + (int)wind.direction + WIND_ICON_OFFSET_ANG) % 360) * M_PI/180.0f);
         }
         break;
             

@@ -9,8 +9,6 @@
 #import "WaypointMapBaseController.h"
 #import <GLKit/GLKit.h>
 
-#import "ArtificialHorizonView.h"
-#import "CompassView.h"
 #import "MavLinkPacketHandler.h"
 #import "CorePlot-CocoaTouch.h"
 #import "SimpleDataView.h"
@@ -42,12 +40,6 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *sidebarButton;
 - (IBAction)toggleSidebar:(id)sender;
-
-#define WIND_ICON_OFFSET_ANG 135
-
-@property (nonatomic, retain) IBOutlet UIImageView *windIconView;
-@property (nonatomic, retain) IBOutlet ArtificialHorizonView *ahIndicatorView;
-@property (nonatomic, retain) IBOutlet CompassView           *compassView;
 
 @property (nonatomic, retain) IBOutlet SimpleDataView *altitudeView;
 @property (nonatomic, retain) IBOutlet SimpleDataView *airspeedView;
