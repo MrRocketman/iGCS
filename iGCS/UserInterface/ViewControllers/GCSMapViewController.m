@@ -518,7 +518,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
     switch (msg->msgid) {
         
         // Temporarily disabled in favour of MAVLINK_MSG_ID_GPS_RAW_INT
-        case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
+        /*case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
         {
             mavlink_global_position_int_t gpsPosIntPkt;
             mavlink_msg_global_position_int_decode(msg, &gpsPosIntPkt);
@@ -527,8 +527,8 @@ static const int AIRPLANE_ICON_SIZE = 48;
             [uavPos setCoordinate:pos];
             [self addToTrack:pos];
         }
-        break;
-        /*
+        break;*/
+        
         case MAVLINK_MSG_ID_GPS_RAW_INT:
         {
             mavlink_gps_raw_int_t gpsRawIntPkt;
@@ -539,7 +539,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
             [self addToTrack:pos];
         }
         break;
-            */
+            
         case MAVLINK_MSG_ID_ATTITUDE:
         {
             mavlink_attitude_t attitudePkt;
@@ -551,7 +551,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
             
             [self.rollView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.roll)]];
             [self.pitchView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.pitch)]];
-            [self.yawView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES(attitudePkt.yaw)]];
+            [self.yawView.valueLabel setText:[NSString stringWithFormat:@"%.1f", RADIANS_TO_DEGREES((attitudePkt.yaw < 0 ? attitudePkt.yaw + M_PI * 2 : attitudePkt.yaw))]];
             self.artificialHorizonView.roll = attitudePkt.roll;
             self.artificialHorizonView.pitch = attitudePkt.pitch;
             self.artificialHorizonView.yaw = attitudePkt.yaw;
