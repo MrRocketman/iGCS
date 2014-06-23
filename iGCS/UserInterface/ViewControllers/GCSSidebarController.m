@@ -8,6 +8,15 @@
 
 #import "GCSSidebarController.h"
 #import "MavLinkUtility.h"
+#import "GCSThemeManager.h"
+#import "DataRateRecorder.h"
+
+@interface GCSSidebarController()
+{
+    CPTXYGraph *dataRateGraph;
+}
+
+@end
 
 @implementation FollowMeCtrlValues
 
@@ -47,6 +56,76 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void) setDataRateRecorder:(DataRateRecorder *)dataRateRecorder {
+    _dataRateRecorder = dataRateRecorder;
+    
+    // Setup the sparkline view
+    dataRateGraph = [[CPTXYGraph alloc] initWithFrame: self.dataRateSparklineView.bounds];
+    self.dataRateSparklineView.hostedGraph = dataRateGraph;
+    
+    // Setup initial plot ranges
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)dataRateGraph.defaultPlotSpace;
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0)
+                                                    length:CPTDecimalFromFloat([self.dataRateRecorder maxDurationInSeconds]/6.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0)
+                                                    length:CPTDecimalFromFloat(1.0)];
+    
+    // Hide the axes
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet*)dataRateGraph.axisSet;
+    axisSet.xAxis.hidden = axisSet.yAxis.hidden = YES;
+    axisSet.xAxis.labelingPolicy = axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
+    
+    // Create the plot object
+    CPTScatterPlot *dateRatePlot = [[CPTScatterPlot alloc] initWithFrame:dataRateGraph.hostingView.bounds];
+    dateRatePlot.identifier = @"Data Rate Sparkline";
+    dateRatePlot.dataSource = self;
+    
+    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+    lineStyle.lineWidth = 1.0f;
+    lineStyle.lineColor = [CPTColor colorWithCGColor:[[GCSThemeManager sharedInstance] appTintColor].CGColor];
+    dateRatePlot.dataLineStyle = lineStyle;
+    
+    dateRatePlot.plotSymbol = CPTPlotSymbolTypeNone;
+    [dataRateGraph addPlot:dateRatePlot];
+    
+    // Position the plotArea within the plotAreaFrame, and the plotAreaFrame within the graph
+    dataRateGraph.fill = [[CPTFill alloc] initWithColor: [CPTColor clearColor]];
+    dataRateGraph.plotAreaFrame.paddingTop    = 0;
+    dataRateGraph.plotAreaFrame.paddingBottom = 0;
+    dataRateGraph.plotAreaFrame.paddingLeft   = 0;
+    dataRateGraph.plotAreaFrame.paddingRight  = 0;
+    dataRateGraph.paddingTop    = 0;
+    dataRateGraph.paddingBottom = 0;
+    dataRateGraph.paddingLeft   = 0;
+    dataRateGraph.paddingRight  = 0;
+    
+    // Listen to data recorder ticks
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onDataRateUpdate:)
+                                                 name:GCSDataRecorderTick
+                                               object:self.dataRateRecorder];
+}
+
+-(void) onDataRateUpdate:(NSNotification*)notification {
+    // Reset the y-axis range and reload the graph data
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)dataRateGraph.defaultPlotSpace;
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.01)
+                                                    length:CPTDecimalFromFloat(MAX([self.dataRateRecorder maxValue]*1.1, 1))];
+    [dataRateGraph reloadData];
+    
+    [self.dataRateLabel setText:[NSString stringWithFormat:@"%0.1fkB/s", [self.dataRateRecorder latestValue]]];
+}
+
+-(NSUInteger) numberOfRecordsForPlot:(CPTPlot *)plot {
+    return [self.dataRateRecorder count];
+}
+
+-(NSNumber *) numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum
+                recordIndex:(NSUInteger)index
+{
+    return @((fieldEnum == CPTScatterPlotFieldX) ? [self.dataRateRecorder secondsSince:index] :[self.dataRateRecorder valueAt:index]);
 }
 
 // Forced clear background as per suggestion: http://stackoverflow.com/questions/18878258/uitableviewcell-show-white-background-and-cannot-be-modified-on-ios7

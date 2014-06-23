@@ -95,7 +95,7 @@
     _dataRateRecorder = [[DataRateRecorder alloc] init];
     
     // Wire up the data rate recorder references
-    self.gcsMapVC.dataRateRecorder = _dataRateRecorder;
+    self.gcsSidebarVC.dataRateRecorder = _dataRateRecorder;
     self.commsVC.dataRateRecorder  = _dataRateRecorder;
 }
 

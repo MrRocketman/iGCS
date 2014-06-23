@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CLLocation.h>
-
+#import "CorePlot-CocoaTouch.h"
 #import "MavLinkPacketHandler.h"
 
 @interface FollowMeCtrlValues : NSObject
@@ -28,13 +28,19 @@
 - (void) followMeControlChange:(FollowMeCtrlValues*)vals;
 @end
 
-@interface GCSSidebarController : UITableViewController <MavLinkPacketHandler, GCSFollowMeCtrlProtocol>
+@class DataRateRecorder;
+
+@interface GCSSidebarController : UITableViewController <MavLinkPacketHandler, GCSFollowMeCtrlProtocol, CPTPlotDataSource>
 
 @property (weak) id <GCSFollowMeCtrlChangeProtocol> followMeChangeListener;
+
+@property (nonatomic, weak) DataRateRecorder *dataRateRecorder;
+@property (nonatomic, retain) IBOutlet CPTGraphHostingView *dataRateSparklineView;
 
 @property (nonatomic, retain) IBOutlet UILabel *mavBaseModeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *mavCustomModeLabel;
 @property (nonatomic, retain) IBOutlet UILabel *mavStatusLabel;
+@property (nonatomic, retain) IBOutlet UILabel *dataRateLabel;
 
 @property (nonatomic, retain) IBOutlet UILabel *acVoltageLabel;
 @property (nonatomic, retain) IBOutlet UILabel *acCurrentLabel;

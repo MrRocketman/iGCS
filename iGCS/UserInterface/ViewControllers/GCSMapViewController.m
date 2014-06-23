@@ -17,19 +17,12 @@
 #import "MiscUtilities.h"
 
 #import "CommController.h"
-#import "DataRateRecorder.h"
 
 #import "CXAlertView.h"
-
-#import "DebugLogger.h"
 
 @implementation GCSMapViewController {
     MKPointAnnotation *uavPos;
     MKAnnotationView *uavView;
-    
-    GLKView *videoOverlayView;
-    EAGLContext *_context;
-    NSMutableDictionary *_availableStreams;
     
     GuidedPointAnnotation *currentGuidedAnnotation;
     RequestedPointAnnotation *requestedGuidedAnnotation;
@@ -43,12 +36,7 @@
     
     int	gamePacketNumber;
     int	gameUniqueID;
-    
-    CPTXYGraph *dataRateGraph;
 }
-
-@synthesize voltageLabel;
-@synthesize batteryPercentageLabel;
 
 // 3 modes
 //  * auto (initiates/returns to mission)
@@ -62,20 +50,12 @@ enum {
     CONTROL_MODE_GUIDED   = 2
 };
 
-#ifdef VIDEOSTREAMING
-@synthesize kxMovieVC = _kxMovieVC;
-@synthesize availableStreams = _availableStreams;
-#endif
 
 static const double FOLLOW_ME_MIN_UPDATE_TIME   = 2.0;
 static const double FOLLOW_ME_REQUIRED_ACCURACY = 10.0;
 
 static const int AIRPLANE_ICON_SIZE = 48;
 
-#define kMaxPacketSize 1024
-#define kGCSBryansTestStream @"kGCSBryansTestStream"
-#define kGCSZ3Stream @"kGCSZ3Stream"
-#define kGCSVideoScaleFactor 0.4
 
 // GameKit Session ID for app
 #define kTankSessionID @"groundStation"
@@ -117,97 +97,11 @@ static const int AIRPLANE_ICON_SIZE = 48;
     
     showProposedFollowPos = NO;
     lastFollowMeUpdate = [NSDate date];
-
-#ifdef VIDEOSTREAMING
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectToVideoStream) name:@"com.kxmovie.done" object:nil];
-#endif
-    
-//    // Initialize the video overlay view
-//    _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-//    videoOverlayView = [[GLKView alloc] initWithFrame:CGRectMake(0,0,48,32) context:_context]; // 32 is max permitted height
-//    videoOverlayView.context = _context;
-//    videoOverlayView.delegate = self;
-//    videoOverlayView.enableSetNeedsDisplay = NO;
-//
-//    uavPos.title = @"On-board Video"; // Some value is required to ensure callout is displayed
-//    uavView.canShowCallout = YES;
-//    uavView.leftCalloutAccessoryView  = videoOverlayView;
-//
-//    [EAGLContext setCurrentContext:_context];
-//    glEnable(GL_DEPTH_TEST);
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
-//    glOrthof(0, 1, 0, 1, -1, 1);
-//    glViewport(0, 0, videoOverlayView.bounds.size.width, videoOverlayView.bounds.size.height);
-//    
-//    CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(renderVideoOverlayView:)];
-//    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-}
-
--(NSDictionary *)availableStreams {
-    if (!_availableStreams) {
-        _availableStreams = [NSMutableDictionary dictionary];
-        _availableStreams[kGCSBryansTestStream] = @{@"url": @"rtsp://70.36.196.50/axis-media/media.amp", @"size": [NSValue valueWithCGSize:CGSizeMake(640, 480)], @"minBufferedDuration": @(2.0f), @"maxBufferedDuration": @(6.0f)};
-        
-        NSString *bryansTestStreamURL = [NSString stringWithFormat:@"file:/%@",[[NSBundle mainBundle] pathForResource:@"multicast_h264_aac_48000" ofType:@"sdp"]];
-        _availableStreams[kGCSZ3Stream] = @{@"url": bryansTestStreamURL, @"size": [NSValue valueWithCGSize:CGSizeMake(1024, 768)], @"minBufferedDuration": @(0.2f), @"maxBufferedDuration": @(0.6f)};
-    }
-    return (NSDictionary *)_availableStreams;
-}
-
-#ifdef VIDEOSTREAMING
--(void)configureVideoStreamWithName:(NSString *) streamName
-                     andScaleFactor:(float) scaleFactor {
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[KxMovieParameterDisableDeinterlacing] = @(YES);
-    params[KxMovieParameterMinBufferedDuration] = self.availableStreams[streamName][@"minBufferedDuration"];
-    params[KxMovieParameterMaxBufferedDuration] = self.availableStreams[streamName][@"maxBufferedDuration"];
-    self.kxMovieVC = [KxMovieViewController movieViewControllerWithContentPath:self.availableStreams[streamName][@"url"] parameters:params];
-    
-    NSValue *videoResolution = self.availableStreams[streamName][@"size"];
-    CGSize videoDisplaySize = [self CGSizeFromSize:[videoResolution CGSizeValue] withScaleFactor:scaleFactor];
-    CGRect f = [self videoFrameWithSize:videoDisplaySize andUAVPoint:uavView.frame.origin];
-    NSLog(@"videoFrame: x:%f y:%f w:%f h:%f", f.origin.x, f.origin.y, f.size.width, f.size.height);
-    self.kxMovieVC.view.frame  =  f;
-}
-#endif
-
--(CGSize)CGSizeFromSize:(CGSize) size
-        withScaleFactor:(float) scaleFactor {
-    CGSize newSize = CGSizeZero;
-    newSize.width = size.width * scaleFactor;
-    newSize.height = size.height * scaleFactor;
-    return newSize;
-}
-
-#ifdef VIDEOSTREAMING
--(void)connectToVideoStream {
-    if ([self.kxMovieVC.view isDescendantOfView:self.parentViewController.view]) {
-        [self.kxMovieVC.view removeFromSuperview];
-    } else {
-        [self.parentViewController.view addSubview:self.kxMovieVC.view];
-        [self.view bringSubviewToFront:self.kxMovieVC.view];
-        [self.kxMovieVC play];
-    }
-}
-#endif
-
--(CGRect)videoFrameWithSize:(CGSize)size andUAVPoint:(CGPoint) uavPoint{
-    CGRect rect = CGRectZero;
-    rect.size.height = size.height;
-    rect.size.width = size.width;
-    rect.origin.x = (self.parentViewController.view.bounds.size.width - (size.width)); //+ size.height + 8;
-    rect.origin.y = 20; //uavPoint.y;
-    
-    return rect;
 }
 
 -(void)airplanTapped:(UITapGestureRecognizer *)gesture {
     NSLog(@"airplane tapped");
-#ifdef VIDEOSTREAMING
-    [self connectToVideoStream];
-#endif
+    //[self connectToVideoStream];
 }
 
 #pragma mark - View lifecycle
@@ -217,7 +111,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
     [super viewDidLoad];
 
     // initialize debug console buffer
-    [DebugLogger start:self.debugConsoleLabel];
+    //[DebugLogger start:self.debugConsoleLabel];
 
     // Adjust view for iOS6 differences
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
@@ -231,55 +125,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
     [map addAnnotation:uavPos];
 }
 
-- (void) setDataRateRecorder:(DataRateRecorder *)dataRateRecorder {
-    _dataRateRecorder = dataRateRecorder;
 
-    // Setup the sparkline view
-    dataRateGraph = [[CPTXYGraph alloc] initWithFrame: self.dataRateSparklineView.bounds];
-    self.dataRateSparklineView.hostedGraph = dataRateGraph;
-    
-    // Setup initial plot ranges
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)dataRateGraph.defaultPlotSpace;
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0)
-                                                    length:CPTDecimalFromFloat([_dataRateRecorder maxDurationInSeconds]/6.0)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0)
-                                                    length:CPTDecimalFromFloat(1.0)];
-    
-    // Hide the axes
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet*)dataRateGraph.axisSet;
-    axisSet.xAxis.hidden = axisSet.yAxis.hidden = YES;
-    axisSet.xAxis.labelingPolicy = axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-    
-    // Create the plot object
-    CPTScatterPlot *dateRatePlot = [[CPTScatterPlot alloc] initWithFrame:dataRateGraph.hostingView.bounds];
-    dateRatePlot.identifier = @"Data Rate Sparkline";
-    dateRatePlot.dataSource = self;
-    
-    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-    lineStyle.lineWidth = 1.0f;
-    lineStyle.lineColor = [CPTColor colorWithCGColor:[[GCSThemeManager sharedInstance] appTintColor].CGColor];
-    dateRatePlot.dataLineStyle = lineStyle;
-    
-    dateRatePlot.plotSymbol = CPTPlotSymbolTypeNone;
-    [dataRateGraph addPlot:dateRatePlot];
-    
-    // Position the plotArea within the plotAreaFrame, and the plotAreaFrame within the graph
-    dataRateGraph.fill = [[CPTFill alloc] initWithColor: [CPTColor clearColor]];
-    dataRateGraph.plotAreaFrame.paddingTop    = 0;
-    dataRateGraph.plotAreaFrame.paddingBottom = 0;
-    dataRateGraph.plotAreaFrame.paddingLeft   = 0;
-    dataRateGraph.plotAreaFrame.paddingRight  = 0;
-    dataRateGraph.paddingTop    = 0;
-    dataRateGraph.paddingBottom = 0;
-    dataRateGraph.paddingLeft   = 0;
-    dataRateGraph.paddingRight  = 0;
-    
-    // Listen to data recorder ticks
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onDataRateUpdate:)
-                                                 name:GCSDataRecorderTick
-                                               object:_dataRateRecorder];
-}
 
 - (void)toggleSidebar:(id)sender {
     self.revealViewController.rearViewRevealWidth = 210;
@@ -288,7 +134,7 @@ static const int AIRPLANE_ICON_SIZE = 48;
 
 - (void)viewDidUnload
 {
-    [self setDebugConsoleLabel:nil];
+    //[self setDebugConsoleLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -534,6 +380,9 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_gps_raw_int_t gpsRawIntPkt;
             mavlink_msg_gps_raw_int_decode(msg, &gpsRawIntPkt);
             
+            NSString *lockString = (gpsRawIntPkt.fix_type <= 1) ? @"No GPS" : ((gpsRawIntPkt.fix_type == 2) ? @"2D Fix" : ((gpsRawIntPkt.fix_type == 3) ? @"3D Fix" : @""));
+            [self.gpsLabel setText:[NSString stringWithFormat:@"%d, %@", gpsRawIntPkt.satellites_visible, lockString]];
+            
             CLLocationCoordinate2D pos = CLLocationCoordinate2DMake(gpsRawIntPkt.lat/10000000.0, gpsRawIntPkt.lon/10000000.0);
             [uavPos setCoordinate:pos];
             [self addToTrack:pos];
@@ -565,8 +414,10 @@ static const int AIRPLANE_ICON_SIZE = 48;
             mavlink_msg_vfr_hud_decode(msg, &vfrHudPkt);
             
             //[compassView setHeading:vfrHudPkt.heading];
+            [self.climbrateView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.climb]];
             [self.airspeedView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.groundspeed]];
             [self.altitudeView.valueLabel setText:[NSString stringWithFormat:@"%.2f", vfrHudPkt.alt]];
+            [self.throttleLabel setText:[NSString stringWithFormat:@"%d%%", vfrHudPkt.throttle]];
         }
         break;
             
@@ -593,8 +444,10 @@ static const int AIRPLANE_ICON_SIZE = 48;
         {
             mavlink_sys_status_t sysStatus;
             mavlink_msg_sys_status_decode(msg, &sysStatus);
-            [voltageLabel setText:[NSString stringWithFormat:@"%0.2fV", sysStatus.voltage_battery/1000.0f]];
-            [batteryPercentageLabel setText:[NSString stringWithFormat:@"%d%%", sysStatus.battery_remaining]];
+            
+            [self.lipoLabel setText:[NSString stringWithFormat:@"%d%%", sysStatus.battery_remaining]];
+            [self.voltageLabel setText:[NSString stringWithFormat:@"%0.2fV", sysStatus.voltage_battery/1000.0f]];
+            [self.signalStrengthLabel setText:[NSString stringWithFormat:@"%d%%", 100 - sysStatus.drop_rate_comm]];
         }
         break;
 
@@ -704,66 +557,6 @@ static const int AIRPLANE_ICON_SIZE = 48;
     }
     
     return nil;
-}
-
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    // FIXME: should check if callout is actually displayed before performing
-    // any serious work (alt: check in renderVideoOverlayView)
-    static bool goingUp = false;
-    static float redVal = 0;
-    
-    redVal += goingUp ? 0.02 : -0.02;
-    if (redVal >= 1.0) {
-        redVal = 1.0;
-        goingUp = NO;
-    }
-    if (redVal <= 0.0) {
-        redVal = 0.0;
-        goingUp = YES;
-    }
-    
-    //NSLog(@"glkView");
-    glClearColor(redVal, 0.0, 1.0, 0.1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
-- (void)renderVideoOverlayView:(CADisplayLink*)displayLink {
-    [videoOverlayView display];
-}
-
-// Override the base locationManager: didUpdateLocations
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = locationManager.location;
-    NSTimeInterval age = -[location.timestamp timeIntervalSinceNow];
-#if DO_NSLOG
-    NSLog(@"locationManager didUpdateLocations: %@ (age = %0.1fs)", location.description, age);
-#endif
-    if (age > 5.0) return;
-    
-    [_followMeControlDelegate followMeLocationAccuracy:location.horizontalAccuracy isAcceptable:[GCSMapViewController isAcceptableFollowMePosition:location]];
-    
-    userPosition = location;
-    [self updateFollowMePosition:[_followMeControlDelegate followMeControlValues]];
-}
-
--(void) onDataRateUpdate:(NSNotification*)notification {
-    // Reset the y-axis range and reload the graph data
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)dataRateGraph.defaultPlotSpace;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.01)
-                                                    length:CPTDecimalFromFloat(MAX([_dataRateRecorder maxValue]*1.1, 1))];
-    [dataRateGraph reloadData];
-    
-    [_dataRateLabel setText:[NSString stringWithFormat:@"%0.1fkB/s", [_dataRateRecorder latestValue]]];
-}
-
--(NSUInteger) numberOfRecordsForPlot:(CPTPlot *)plot {
-    return [_dataRateRecorder count];
-}
-
--(NSNumber *) numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum
-                recordIndex:(NSUInteger)index
-{
-    return @((fieldEnum == CPTScatterPlotFieldX) ? [_dataRateRecorder secondsSince:index] :[_dataRateRecorder valueAt:index]);
 }
 
 @end

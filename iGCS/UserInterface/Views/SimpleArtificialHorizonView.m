@@ -10,6 +10,9 @@
 
 @implementation SimpleArtificialHorizonView
 
+@synthesize pitch = _pitch;
+@synthesize roll = _roll;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -24,6 +27,8 @@
     self = [super initWithCoder:aDecoder];
     if(self)
     {
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.width);
+        
         self.layer.cornerRadius = self.frame.size.width / 2;
         self.layer.masksToBounds = YES;
         
@@ -36,6 +41,40 @@
     return self;
 }
 
+- (void)setPitch:(float)thePitch
+{
+    if(thePitch < M_PI / 2)
+    {
+        _pitch = thePitch;
+    }
+    else
+    {
+        _pitch = -fmodf(thePitch, (M_PI / 2));
+    }
+}
+
+- (float)pitch
+{
+    return _pitch;
+}
+
+- (void)setRoll:(float)theRoll
+{
+    if(theRoll < M_PI / 2)
+    {
+        _roll = theRoll;
+    }
+    else
+    {
+        _roll = -fmodf(theRoll, (M_PI / 2));
+    }
+}
+
+- (float)roll
+{
+    return _roll;
+}
+
 - (void)drawBackgroundWithContext:(CGContextRef)context andRect:(CGRect)rect
 {
     CGPoint centerPoint = CGPointMake(CGRectGetMidX(rect) , CGRectGetMidY(rect));
@@ -43,7 +82,7 @@
     // Define variables
     float r = self.frame.size.width / 2;
     float xMinorDelta = 0.1 * r;
-    float yMinorDelta = 1.0 / 8.0 * r;
+    float yMinorDelta = 1.0 / 5.0 * r; // the 1/5 adjust the spacing of the pitch lines
     
     CGContextSaveGState(context);
     // Rotate about the centr point
@@ -103,6 +142,9 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    //self.pitch += 0.01;
+    //[self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.033];
+    
     CGPoint centerPoint = CGPointMake(CGRectGetMidX(rect) , CGRectGetMidY(rect));
     
     // Drawing code

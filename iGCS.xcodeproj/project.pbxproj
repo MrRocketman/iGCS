@@ -1673,9 +1673,9 @@
 		496E627F16DAFB8B00E52E4A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				496E628616DAFB8B00E52E4A /* GaugeViewCommon.h */,
 				CA094F2418D534AA00AC6AE4 /* FillStrokePolyLineView.h */,
 				CA094F2518D534AA00AC6AE4 /* FillStrokePolyLineView.m */,
-				496E628616DAFB8B00E52E4A /* GaugeViewCommon.h */,
 				1A117C4819511168005949F5 /* SimpleDataView.h */,
 				1A117C4919511168005949F5 /* SimpleDataView.m */,
 				1A117C5419522912005949F5 /* SmallDataView.h */,
